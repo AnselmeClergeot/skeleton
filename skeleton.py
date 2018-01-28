@@ -3,6 +3,10 @@
 import os, sys
 from colorama import init, Fore, Style
 
+def dispLogo() :
+    logoPath = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'logo')
+    with open(logoPath, 'r') as logo_file :
+        print(Style.BRIGHT + Fore.CYAN + logo_file.read() + Style.RESET_ALL)
 
 def fileInfos(fileName) :
     base = os.path.splitext(os.path.basename(fileName))
@@ -68,6 +72,8 @@ def writeFile(path, template) :
             newFile.write(content)
         
 if __name__ == '__main__' :
+
+    dispLogo()
 
     init() #For colorama
 
