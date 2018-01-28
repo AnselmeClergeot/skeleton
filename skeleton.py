@@ -70,6 +70,18 @@ def writeFile(path, template) :
         
         with open(path, 'w') as newFile :
             newFile.write(content)
+
+def getConfig(param) :
+
+    configFilePath = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'cfg')
+
+    with open(configFilePath, 'r') as cfg_file :
+        content = cfg_file.read().split('\n')
+
+        for line in content :
+            parsedLine = line.strip().split('=')
+            if parsedLine[0].replace(' ', '')  == param :
+                return parsedLine[1].replace(' ', '')
         
 if __name__ == '__main__' :
 
@@ -105,9 +117,12 @@ if __name__ == '__main__' :
 
     template = 0
 
-    if '-t' in params :
+    if '-c' in params :
         template = choseTemplate(extension)
 
     writeFile(fileName, template)
     print(Fore.GREEN + "File was successfully created.")
+
+    if not '-d' in params :
+        os.system('{} {}'.format(getConfig('editor'), fileName))
 

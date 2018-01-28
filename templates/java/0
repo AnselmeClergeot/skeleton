@@ -1,0 +1,7 @@
+Basic Java class containing the main function.
+public class MYCLASS {
+
+	public static void main(String[] args) {
+
+	}
+}

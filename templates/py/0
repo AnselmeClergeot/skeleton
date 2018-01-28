@@ -1,0 +1,5 @@
+Basic .py document including utf-8 encoding and main function.
+#-*- coding: utf-8 -*-
+
+if __name__ == '__main__' :
+	
