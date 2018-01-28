@@ -1,0 +1,19 @@
+Basic HTML skeleton, with additional javascript <script> and css <style> attributes
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> </title>
+		
+		<script type="text/javascript">
+		</script>
+
+		<style type="text/css">
+		</style>
+	</head>
+
+	<body>
+
+	</body>
+
+</html>

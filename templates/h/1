@@ -1,0 +1,13 @@
+Class definition for C++ program.
+class /*name*/ : /*parent*/
+{
+	public :
+		//Code
+	
+	private :
+		//Code
+
+	protected :
+		//Code
+
+};

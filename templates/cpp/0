@@ -1,4 +1,4 @@
-main.cpp file structure, containing basic includes and main function.
+Basic main file for C++ program, containing basic includes and main function.
 #include <iostream>
 
 int main(int argc, char *argv[])

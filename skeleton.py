@@ -11,12 +11,15 @@ def dispLogo() :
 def fileInfos(fileName) :
     base = os.path.splitext(os.path.basename(fileName))
     name, extension = base[0], base[1][1:]
-    
+
     if len(name) != 0 and len(extension) != 0 :
         return base, extension
 
-    else :
+    elif name == '.' :
         return -1
+
+    else :
+        return 0
 
 def templateExists(extension) :
     templatePath = getTemplatePath(extension)
@@ -75,8 +78,6 @@ def createEmptyFile(path) :
     with open(path, 'w') as newFile :
         pass
 
-
-
 def getConfig(param) :
 
     with open(getCfgPath(), 'r') as cfg_file :
@@ -104,7 +105,13 @@ if __name__ == '__main__' :
     results = fileInfos(fileName)
 
     if results == -1 :
-        print(Fore.RED + "Error, incorrect file name.")
+        print(Fore.RED + "File name is incorrect.")
+        sys.exit(-1)
+
+    elif results == 0 :
+        print(Fore.RED + "Could not detect that file type.")
+        print(Fore.GREEN + "Creating empty file.")
+        createEmptyFile(fileName)
         sys.exit(-1)
 
     name, extension = results[0], results[1]
