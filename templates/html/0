@@ -1,7 +1,8 @@
-Basic HTML file skeleton. <html>, <head> and <body parts>
+Minimal HTML skeleton. <html>, <head> and <body> parts.
+<!DOCTYPE html>
 <html>
 	<head>
-
+		<title></title>
 	</head>
 
 	<body>
