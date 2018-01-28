@@ -2,10 +2,10 @@
 
 import os, sys
 from colorama import init, Fore, Style
+from paths import *
 
 def dispLogo() :
-    logoPath = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'logo')
-    with open(logoPath, 'r') as logo_file :
+    with open(getLogoPath(), 'r') as logo_file :
         print(Style.BRIGHT + Fore.CYAN + logo_file.read() + Style.RESET_ALL)
 
 def fileInfos(fileName) :
@@ -19,18 +19,18 @@ def fileInfos(fileName) :
         return -1
 
 def templateExists(extension) :
-    templatesPath = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'templates', extension)
+    templatePath = getTemplatePath(extension)
 
-    return os.path.exists(templatesPath) and len(os.listdir(templatesPath)) > 0
+    return os.path.exists(templatePath) and len(os.listdir(templatePath)) > 0
 
 def displayTemplates(extension) :
     
-    templatesPath = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'templates', extension)
+    templatePath = getTemplatePath(extension)
 
-    templateNum = len(os.listdir(templatesPath))
+    templateNum = len(os.listdir(templatePath))
 
     for i in range(templateNum) :
-        with open(os.path.join(templatesPath, str(i))) as template :
+        with open(os.path.join(templatePath, str(i))) as template :
             desc = template.readline().strip()
             print(Fore.CYAN + "{}) ".format(i) + desc)
 
@@ -63,9 +63,9 @@ def canWrite(path) :
 
 def writeFile(path, template) :
      
-    templatesPath = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'templates', extension)
+    templatePath = getTemplatePath(extension)
 
-    with open(os.path.join(templatesPath, str(template)), 'r') as template :
+    with open(os.path.join(templatePath, str(template)), 'r') as template :
         content = '\n'.join(template.read().split('\n')[1:])
         
         with open(path, 'w') as newFile :
@@ -73,9 +73,7 @@ def writeFile(path, template) :
 
 def getConfig(param) :
 
-    configFilePath = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'cfg')
-
-    with open(configFilePath, 'r') as cfg_file :
+    with open(getCfgPath(), 'r') as cfg_file :
         content = cfg_file.read().split('\n')
 
         for line in content :
