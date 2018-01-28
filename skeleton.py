@@ -71,6 +71,12 @@ def writeFile(path, template) :
         with open(path, 'w') as newFile :
             newFile.write(content)
 
+def createEmptyFile(path) :
+    with open(path, 'w') as newFile :
+        pass
+
+
+
 def getConfig(param) :
 
     with open(getCfgPath(), 'r') as cfg_file :
@@ -110,6 +116,8 @@ if __name__ == '__main__' :
 
     if not templateExists(extension) :
         print(Fore.RED + "No template found for " + Style.BRIGHT + ".{}".format(extension) + Style.RESET_ALL + Fore.RED + " files.")
+        print(Fore.GREEN + "File will be created but left empty.")
+        createEmptyFile(fileName)
         sys.exit(-1)
 
 
@@ -123,4 +131,3 @@ if __name__ == '__main__' :
 
     if not '-d' in params :
         os.system('{} {}'.format(getConfig('editor'), fileName))
-

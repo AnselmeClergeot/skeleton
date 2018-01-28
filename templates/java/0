@@ -1,7 +1,8 @@
-Basic Java class containing the main function.
-public class MYCLASS {
+Public Java class containing the main function.
+public class /*name*/ {
 
 	public static void main(String[] args) {
-
+		//Your code
 	}
+
 }

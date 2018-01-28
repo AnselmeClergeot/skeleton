@@ -1,4 +1,4 @@
-Skeleton for main.cpp file with basic includes.
+main.cpp file structure, containing basic includes and main function.
 #include <iostream>
 
 int main(int argc, char *argv[])

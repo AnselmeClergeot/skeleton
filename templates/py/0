@@ -1,5 +1,5 @@
-Basic .py document including utf-8 encoding and main function.
+UTF-8 encoded file and main function for .py file	
 #-*- coding: utf-8 -*-
 
 if __name__ == '__main__' :
-	
+	#Your code

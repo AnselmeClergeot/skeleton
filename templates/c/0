@@ -1,0 +1,8 @@
+main.c file structure, containing basic includes and main function.
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+
+	return 0;
+}
