@@ -16,20 +16,18 @@ def fileInfos(fileName) :
         return base, extension
 
     elif name == '.' :
-        return -1
+        return 'forbidden'
 
     else :
-        return 0
+        return 'noextension'
 
 def templateExists(extension) :
     templatePath = getTemplatePath(extension)
-
     return os.path.exists(templatePath) and len(os.listdir(templatePath)) > 0
 
 def displayTemplates(extension) :
     
     templatePath = getTemplatePath(extension)
-
     templateNum = len(os.listdir(templatePath))
 
     for i in range(templateNum) :
@@ -37,7 +35,6 @@ def displayTemplates(extension) :
             desc = template.readline().strip()
             print(Fore.CYAN + "{}) ".format(i) + desc)
 
-    print('')
     return templateNum
 
 def choseTemplate(extension) :
@@ -90,51 +87,51 @@ def getConfig(param) :
         
 if __name__ == '__main__' :
 
-    dispLogo()
-
     init() #For colorama
+
+    dispLogo()
 
     params = sys.argv[1:]
 
     if len(params) == 0 :
-        print(Fore.RED + "Error, incorrect number of parameters.")
+        print(Fore.RED + "Incorrect number of parameters.")
         sys.exit(-1)
 
     fileName = params[0]
 
-    results = fileInfos(fileName)
+    infos = fileInfos(fileName)
 
-    if results == -1 :
+    if infos == 'forbidden' :
         print(Fore.RED + "File name is incorrect.")
         sys.exit(-1)
 
-    elif results == 0 :
+    elif infos == 'noextension' :
         print(Fore.RED + "Could not detect that file type.")
-        print(Fore.GREEN + "Creating empty file.")
         createEmptyFile(fileName)
-        sys.exit(-1)
+    
+    else : #Our file has an extension
 
-    name, extension = results[0], results[1]
+        name, extension = infos[0], infos[1]
 
-    if not canWrite(fileName) :
-        print(Fore.RED + "Will not be able to create file {}, file already exists.".format(fileName))
-        sys.exit(-1)
-
-
-    if not templateExists(extension) :
-        print(Fore.RED + "No template found for " + Style.BRIGHT + ".{}".format(extension) + Style.RESET_ALL + Fore.RED + " files.")
-        print(Fore.GREEN + "File will be created but left empty.")
-        createEmptyFile(fileName)
-        sys.exit(-1)
+        if not canWrite(fileName) : #If file already exists, don't take risk of overwriting it, quit
+            print(Fore.RED + "Will not be able to create file {}, file already exists.".format(fileName))
+            sys.exit(-1)
 
 
-    template = 0
+        if not templateExists(extension) : #If extension is unknown
+            print(Fore.RED + "No template found for " + Style.BRIGHT + ".{}".format(extension) + Style.RESET_ALL + Fore.RED + " files.")
+            createEmptyFile(fileName)
 
-    if '-c' in params :
-        template = choseTemplate(extension)
+        else : #If it is a known extension
 
-    writeFile(fileName, template)
+            template = 0
+
+            if '-c' in params :
+                template = choseTemplate(extension)
+
+            writeFile(fileName, template)
+
     print(Fore.GREEN + "File was successfully created.")
 
-    if not '-d' in params :
+    if not '-d' in params : #Opening
         os.system('{} {}'.format(getConfig('editor'), fileName))
