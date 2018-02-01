@@ -8,7 +8,7 @@ def dispLogo() :
     with open(getLogoPath(), 'r') as logo_file :
         print(Style.BRIGHT + Fore.CYAN + logo_file.read() + Style.RESET_ALL)
 
-def fileInfos(fileName) :
+def getInfos(fileName) :
     base = os.path.splitext(os.path.basename(fileName))
     name, extension = base[0], base[1][1:]
 
@@ -21,47 +21,10 @@ def fileInfos(fileName) :
     else :
         return 'noextension'
 
-def templateExists(extension) :
-    templatePath = getTemplatePath(extension)
-    return os.path.exists(templatePath) and len(os.listdir(templatePath)) > 0
-
-def displayTemplates(extension) :
-    
-    templatePath = getTemplatePath(extension)
-    templateNum = len(os.listdir(templatePath))
-
-    for i in range(templateNum) :
-        with open(os.path.join(templatePath, str(i))) as template :
-            desc = template.readline().strip()
-            print(Fore.CYAN + "{}) ".format(i) + desc)
-
-    return templateNum
-
-def choseTemplate(extension) :
-
-    templateNum = displayTemplates(extension)
-    choiceCorrect = False
-
-    while not choiceCorrect :
-        choiceCorrect = True
-
-        try :
-            choice = int(raw_input(Fore.CYAN + "Chose : "))
-
-            if not (0 <= choice < templateNum) :
-                print(Fore.RED + "Please chose an existing template.")
-                choiceCorrect = False
-
-        except ValueError :
-            print(Fore.RED + "Please unter a number.")
-            choiceCorrect = False
-
-    return choice
-
 def canWrite(path) :
     return not os.path.exists(path)
 
-def writeFile(path, extension, template) :
+def write(path, extension, template) :
      
     templatePath = getTemplatePath(extension)
 
@@ -71,7 +34,7 @@ def writeFile(path, extension, template) :
         with open(path, 'w') as newFile :
             newFile.write(content)
 
-def createEmptyFile(path) :
+def createEmpty(path) :
     with open(path, 'w') as newFile :
         pass
 
